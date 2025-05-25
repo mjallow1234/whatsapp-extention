@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+      <!-- ...existing code... -->
+      <nav class="w-full bg-slate-100 border-b border-slate-200 py-2 px-4 flex gap-4 text-sm font-medium">
+        <a href="index.html">Home</a>
+        <a href="connect.html">Connect</a>
+        <a href="contacts.html">Contacts</a>
+        <a href="conversations.html">Conversations</a>
+        <a href="campaigns.html">Campaigns</a>
+        <a href="automations.html">Automations</a>
+        <a href="workflows.html">Workflows</a>
+        <a href="logs.html">Logs</a>
+        <a href="overview.html">Overview</a>
+        <a href="templates.html">Templates</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+      <div class="p-8 max-w-xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Contacts</h1>
+        <ul id="contactsList" class="divide-y divide-gray-200 bg-white rounded shadow">
+          <!-- Contacts will be rendered here -->
+        </ul>
+      </div>
+      <script>
+        // Mock contacts data
+        const contacts = [
+          { name: 'Alice Johnson', phone: '+1234567890' },
+          { name: 'Bob Smith', phone: '+1987654321' },
+          { name: 'Charlie Lee', phone: '+1122334455' }
+        ];
+        const list = document.getElementById('contactsList');
+        contacts.forEach(c => {
+          const li = document.createElement('li');
+          li.className = 'p-4 flex justify-between items-center';
+          li.innerHTML = `<span><strong>${c.name}</strong><br><span class='text-gray-500 text-sm'>${c.phone}</span></span><button class='bg-blue-600 text-white px-3 py-1 rounded'>Message</button>`;
+          list.appendChild(li);
+        });
+      </script>
+    </div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('service-worker.js');
+        });
+      }
+    </script>
+  </body>
+</html>

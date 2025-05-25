@@ -1,0 +1,16 @@
+{
+  "name": "WhatsApp Extension",
+  "short_name": "WA Extension",
+  "description": "A modern WhatsApp Extension UI based on Google Stitch templates.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

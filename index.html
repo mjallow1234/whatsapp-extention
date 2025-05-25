@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <nav class="w-full bg-slate-100 border-b border-slate-200 py-2 px-4 flex gap-4 text-sm font-medium">
+      <a href="index.html">Home</a>
+      <a href="connect.html">Connect</a>
+      <a href="contacts.html">Contacts</a>
+      <a href="conversations.html">Conversations</a>
+      <a href="campaigns.html">Campaigns</a>
+      <a href="automations.html">Automations</a>
+      <a href="workflows.html">Workflows</a>
+      <a href="logs.html">Logs</a>
+      <a href="overview.html">Overview</a>
+      <a href="templates.html">Templates</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <div class="p-8 text-center">
+      <h1 class="text-3xl font-bold mb-2">Welcome to WhatsApp Extension</h1>
+      <p class="text-gray-600">Start by selecting a tab above to explore features.</p>
+      <button id="openModal" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Show Info Modal</button>
+    </div>
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-sm w-full">
+        <h2 class="text-xl font-bold mb-2">Info Modal</h2>
+        <p class="mb-4">This is a sample modal for demonstration. You can add more interactivity here!</p>
+        <button id="closeModal" class="bg-blue-600 text-white px-4 py-2 rounded">Close</button>
+      </div>
+    </div>
+    <button id="toggleDark" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded shadow">Toggle Dark Mode</button>
+    <script>
+      // Modal logic
+      document.getElementById('openModal').onclick = function() {
+        document.getElementById('modal').classList.remove('hidden');
+      };
+      document.getElementById('closeModal').onclick = function() {
+        document.getElementById('modal').classList.add('hidden');
+      };
+      // Dark mode support
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.documentElement.classList.add('dark');
+      }
+      document.getElementById('toggleDark').onclick = function() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('darkMode', isDark);
+      };
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('service-worker.js');
+        });
+      }
+    </script>
+  </body>
+</html>
