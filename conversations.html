@@ -14,6 +14,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
@@ -33,6 +34,7 @@
       </nav>
       <div class="p-8 max-w-xl mx-auto">
         <h1 class="text-2xl font-bold mb-4">Conversations</h1>
+        <input id="searchConvInput" type="text" placeholder="Search conversations..." class="w-full border rounded px-3 py-2 mb-4" />
         <ul id="conversationsList" class="divide-y divide-gray-200 bg-white rounded shadow">
           <!-- Conversations will be rendered here -->
         </ul>
@@ -40,17 +42,23 @@
       <script>
         // Mock conversations data
         const conversations = [
-          { name: 'Alice Johnson', last: 'Hey, how are you?' },
-          { name: 'Bob Smith', last: 'Let’s catch up soon.' },
-          { name: 'Charlie Lee', last: 'Sent the files.' }
+          { name: 'Alice Johnson', last: 'Hey, how are you?', avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
+          { name: 'Bob Smith', last: 'Let’s catch up soon.', avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
+          { name: 'Charlie Lee', last: 'Sent the files.', avatar: 'https://randomuser.me/api/portraits/men/3.jpg' }
         ];
         const clist = document.getElementById('conversationsList');
-        conversations.forEach(conv => {
-          const li = document.createElement('li');
-          li.className = 'p-4 flex justify-between items-center';
-          li.innerHTML = `<span><strong>${conv.name}</strong><br><span class='text-gray-500 text-sm'>${conv.last}</span></span><button class='bg-blue-600 text-white px-3 py-1 rounded'>Open</button>`;
-          clist.appendChild(li);
-        });
+        const searchConvInput = document.getElementById('searchConvInput');
+        function renderConversations(filter = '') {
+          clist.innerHTML = '';
+          conversations.filter(conv => conv.name.toLowerCase().includes(filter.toLowerCase())).forEach(conv => {
+            const li = document.createElement('li');
+            li.className = 'p-4 flex justify-between items-center';
+            li.innerHTML = `<span class='flex items-center gap-3'><img src='${conv.avatar}' class='w-10 h-10 rounded-full border' alt='${conv.name}' /><span><strong>${conv.name}</strong><br><span class='text-gray-500 text-sm'>${conv.last}</span></span></span><button class='bg-blue-600 text-white px-3 py-1 rounded'>Open</button>`;
+            clist.appendChild(li);
+          });
+        }
+        renderConversations();
+        searchConvInput.addEventListener('input', e => renderConversations(e.target.value));
       </script>
     </div>
     <script>

@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#2563eb" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <nav class="w-full bg-slate-100 border-b border-slate-200 py-2 px-4 flex gap-4 text-sm font-medium">
@@ -24,14 +25,14 @@
     </nav>
     <div class="p-8 max-w-xl mx-auto">
       <h1 class="text-2xl font-bold mb-4">Settings</h1>
-      <form class="space-y-4">
+      <form class="space-y-4" id="settingsForm">
         <div>
           <label class="block font-medium mb-1">Profile Name</label>
-          <input type="text" class="w-full border rounded px-3 py-2" placeholder="Your name" />
+          <input type="text" id="profileName" class="w-full border rounded px-3 py-2" placeholder="Your name" />
         </div>
         <div>
           <label class="block font-medium mb-1">Email</label>
-          <input type="email" class="w-full border rounded px-3 py-2" placeholder="you@email.com" />
+          <input type="email" id="profileEmail" class="w-full border rounded px-3 py-2" placeholder="you@email.com" />
         </div>
         <div>
           <label class="block font-medium mb-1">Dark Mode</label>
@@ -53,6 +54,31 @@
           navigator.serviceWorker.register('service-worker.js');
         });
       }
+    </script>
+    <script>
+      // Settings persistence
+      const form = document.getElementById('settingsForm');
+      const nameInput = document.getElementById('profileName');
+      const emailInput = document.getElementById('profileEmail');
+      const darkToggle = document.getElementById('darkModeToggle');
+      // Load settings
+      const saved = JSON.parse(localStorage.getItem('waSettings') || '{}');
+      if (saved.name) nameInput.value = saved.name;
+      if (saved.email) emailInput.value = saved.email;
+      if (saved.darkMode) {
+        darkToggle.checked = true;
+        document.documentElement.classList.add('dark');
+      }
+      form.onsubmit = e => {
+        e.preventDefault();
+        localStorage.setItem('waSettings', JSON.stringify({
+          name: nameInput.value,
+          email: emailInput.value,
+          darkMode: darkToggle.checked
+        }));
+        document.documentElement.classList.toggle('dark', darkToggle.checked);
+        alert('Settings saved!');
+      };
     </script>
   </body>
 </html>
